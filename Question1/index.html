@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<script>
+  function clearCode(){
+    document.getElementById('htmlcode').value="";
+  }
+  function clearDisplay(){
+    document.getElementById('display').srcdoc="";
+  }
+  function run(){
+    var code = document.getElementById('htmlcode').value;
+    document.getElementById('display').srcdoc = code;
+  }
+
+</script>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <textarea id="htmlcode" rows="25" cols="70" style="background-color:lightyellow;"></textarea>
+      <br/>
+      <br/>
+      <button class="btn btn-danger" type="button" id="clear" onclick="clearCode()">Clear Code</button>
+      <button class="btn btn-danger" type="button" id="clearDisplay" onclick="clearDisplay()">Clear Display</button>
+      <button class="btn btn-success" type="button" id="run" onclick="run()">Run</button>
+    </div>
+    <div class="col-lg-6">
+      <iframe id="display" srcdoc="" width="600px" height="500px" style="background-color:lightgrey;"></iframe>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

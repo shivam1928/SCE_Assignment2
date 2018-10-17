@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+  function searchByName(){
+    url = "https://anapioficeandfire.com/api/characters?name=";
+    var searchKey = document.getElementById('searchbox').value;
+    if(searchKey==""){
+      alert('enter something in the search bar');
+      return;
+    }
+    url = url + searchKey;
+    $.getJSON(url, function(object){
+        // alert(object[0].name);
+        // alert(object[0].born);
+        if(object.length==0)  alert('No data found...!');
+        var name="<b>Name</b>: "+object[0].name+"<hr>";
+        var gender="<b>Gender</b>: "+object[0].gender+"<hr>";
+        var culture="<b>Culture</b>: "+object[0].culture+"<hr>";
+        var born="<b>Born</b>: "+object[0].born+"<hr>";
+        var died="<b>Died</b>: "+object[0].died+"<hr>";
+        var titles="<b>Titles</b>: "+object[0].titles+"<hr>";
+        var aliases="<b>Also known as</b>: "+object[0].aliases+"<hr>";
+        var actor="<b>Played by</b>: "+object[0].playedBy+"<hr>";
+
+        var string = name+gender+culture+born+died+titles+aliases+actor;
+        document.getElementById('print').innerHTML="";
+        document.getElementById('print').innerHTML=string;
+    });
+  }
+
+  function searchByHouse(){
+    url = "https://anapioficeandfire.com/api/houses?name=";
+    var searchKey = document.getElementById('searchbox').value;
+    if(searchKey==""){
+      alert('enter something in the search bar');
+      return;
+    }
+    url = url + searchKey;
+    $.getJSON(url, function(object){
+
+        if(object.length==0)  alert('No data found...!');
+        var name="<b>Name</b>: "+object[0].name+"<hr>";
+        var region="<b>Region</b>: "+object[0].region+"<hr>";
+        var coatOfArms="<b>Coat of Arms</b>: "+object[0].coatOfArms+"<hr>";
+        var titles="<b>Titles</b>: "+object[0].titles+"<hr>";
+        var heir="<b>Heir</b>: "+object[0].heir+"<hr>";
+        var founder="<b>Founder</b>: "+object[0].founder+"<hr>";
+
+        var string = name+region+coatOfArms+titles+heir+founder;
+        document.getElementById('print').innerHTML="";
+        document.getElementById('print').innerHTML=string;
+    });
+  }
+
+  function searchByRandomName(){
+    url = "https://anapioficeandfire.com/api/characters/";
+    var num = Math.floor((Math.random() * 1000) + 1);
+    url = url + num.toString();
+    $.getJSON(url, function(ob){
+        var name="<b>Name</b>: "+ob.name+"<hr>";
+        var gender="<b>Gender</b>: "+ob.gender+"<hr>";
+        var culture="<b>Culture</b>: "+ob.culture+"<hr>";
+        var born="<b>Born</b>: "+ob.born+"<hr>";
+        var died="<b>Died</b>: "+ob.died+"<hr>";
+        var titles="<b>Titles</b>: "+ob.titles+"<hr>";
+        var aliases="<b>Also known as</b>: "+ob.aliases+"<hr>";
+        var actor="<b>Played by</b>: "+ob.playedBy+"<hr>";
+
+        var string = name+gender+culture+born+died+titles+aliases+actor;
+        document.getElementById('print').innerHTML="";
+        document.getElementById('print').innerHTML=string;
+    }).fail(function(){
+      searchByRandomName();
+    });
+  }
+
+  function searchByRandomHouse(){
+    url = "https://anapioficeandfire.com/api/houses/";
+    var num = Math.floor((Math.random() * 100) + 1);
+    url = url + num.toString();
+    $.getJSON(url, function(ob){
+      var name="<b>Name</b>: "+ob.name+"<hr>";
+      var region="<b>Region</b>: "+ob.region+"<hr>";
+      var coatOfArms="<b>Coat of Arms</b>: "+ob.coatOfArms+"<hr>";
+      var titles="<b>Titles</b>: "+ob.titles+"<hr>";
+      var heir="<b>Heir</b>: "+ob.heir+"<hr>";
+      var founder="<b>Founder</b>: "+ob.founder+"<hr>";
+
+      var string = name+region+coatOfArms+titles+heir+founder;
+      document.getElementById('print').innerHTML="";
+      document.getElementById('print').innerHTML=string;
+    }).fail(function(){
+      searchByRandomName();
+    });
+  }
+
+  function searchByRandomNameOfHouse(){
+    url = "https://anapioficeandfire.com/api/houses?name=";
+    var searchKey = document.getElementById('searchbox').value;
+    if(searchKey==""){
+      alert('enter something in the search bar');
+      return;
+    }
+    url = url + searchKey;
+    var memberUrl="";
+    $.getJSON(url, function(object){
+        if(object.length==0)  alert('No data found...!');
+        var num = Math.floor((Math.random() * object[0].swornMembers.length));
+        memberUrl=object[0].swornMembers[num];
+    }).done(function(){
+        $.getJSON(memberUrl, function(ob){
+          var name="<b>Name</b>: "+ob.name+"<hr>";
+          var gender="<b>Gender</b>: "+ob.gender+"<hr>";
+          var culture="<b>Culture</b>: "+ob.culture+"<hr>";
+          var born="<b>Born</b>: "+ob.born+"<hr>";
+          var died="<b>Died</b>: "+ob.died+"<hr>";
+          var titles="<b>Titles</b>: "+ob.titles+"<hr>";
+          var aliases="<b>Also known as</b>: "+ob.aliases+"<hr>";
+          var actor="<b>Played by</b>: "+ob.playedBy+"<hr>";
+
+          var string = name+gender+culture+born+died+titles+aliases+actor;
+          document.getElementById('print').innerHTML="";
+          document.getElementById('print').innerHTML=string;
+        })
+    });
+  }
+
+</script>
+<br/>
+<div class="container-fluid">
+  <div class="text-center ">
+      <input class="form-control" type="search" id="searchbox" >
+  </div>
+  <br/>
+  <div class="text-center">
+      <button class="btn btn-success" onclick="searchByName()"> Search by character </button>
+      <button class="btn btn-success" onclick="searchByHouse()"> Search by house </button>
+      <button class="btn btn-success" onclick="searchByRandomName()"> Random character </button>
+      <button class="btn btn-success" onclick="searchByRandomHouse()"> Random house </button>
+      <button class="btn btn-success" onclick="searchByRandomNameOfHouse()"> Random character from house </button>
+  </div>
+</div>
+<hr>
+<div class="text-center" id="print">
+
+</div>
+
+
+</body>
+</html>
